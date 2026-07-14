@@ -1,0 +1,150 @@
+{
+	"privacy-policy": {
+		"title": "Privacy Policy",
+		"description": "Read the Quantum Travels privacy policy.",
+		"updatedDate": "Updated 30 May 2026",
+		"intro": [
+			"Quantum Travels Limited (\"Quantum Travels\", \"we\", \"us\", or \"our\") is committed to safeguarding your personal data and ensuring your privacy. This policy explains how we collect, process, use, and protect your information when you use our booking services, website, and applications.",
+			"As Nigeria's leading corporate travel consolidator and logistics provider, we handle your personal and booking details with the utmost care, in compliance with the Nigeria Data Protection Regulation (NDPR) and other applicable regional data protection laws."
+		],
+		"sections": [
+			{
+				"title": "1. What is Personal Data at Quantum Travels?",
+				"paragraphs": [
+					"Personal data refers to any information that can identify you directly or indirectly. When you book travel services through our platform—such as car rentals, airport pickups, airport drop-offs, corporate events, or corporate travel management—we collect data necessary to fulfill these bookings and manage your travel itineraries.",
+					"We collect only what is essential for booking management, client communications, and safety compliance, minimizing data capture in alignment with global privacy principles."
+				]
+			},
+			{
+				"title": "2. Personal Data We Collect From You",
+				"paragraphs": [
+					"We collect information that you submit directly to us when making reservations or setting up a corporate account. This includes:",
+					"• Passenger details: Full name, gender, date of birth, email address, phone number, and mailing address.",
+					"• Flight and travel information: Flight numbers, arrival/departure times, destination addresses, terminal selections, and specific accommodation request notes.",
+					"• Transaction details: Billing address and receipts. All payments are processed through secure, PCI-DSS compliant third-party gateways (e.g., Paystack). We do not store or access your credit card numbers, CVVs, or bank authorization pins on our servers.",
+					"• Corporate account info: Employer name, designation, and corporate travel policy configurations."
+				]
+			},
+			{
+				"title": "3. Technical Data and Cookies",
+				"paragraphs": [
+					"We automatically collect certain technical details when you visit our website, including your IP address, browser type, device information, operating system, and page navigation history.",
+					"This data is used to analyze visitor trends, secure our systems against fraudulent transactions, and store active session parameters (such as temporary car search selections in your browser's sessionStorage) to deliver a clean, clean-URL booking experience."
+				]
+			},
+			{
+				"title": "4. How We Use Your Personal Data",
+				"paragraphs": [
+					"We use the collected data to process and confirm your travel reservations, arrange logistics, and send updates. Specifically, this includes:",
+					"• Fulfilling pickup/drop-off services and sharing passenger/driver details.",
+					"• Verifying payment references with Paystack to authorize travel services.",
+					"• Providing updates on flight delays, itinerary adjustments, and reservation changes.",
+					"• Addressing support enquiries and feedback regarding our services.",
+					"• Improving our web platforms, security protocols, and operational workflows."
+				]
+			},
+			{
+				"title": "5. Data Sharing and Disclosure",
+				"paragraphs": [
+					"We do not sell, rent, or lease your personal data to marketing databases or third-party advertisers. We share information only with trusted parties essential to fulfilling your travel arrangements:",
+					"• Transport Operators and Drivers: Local drivers receive your name, phone number, flight details, and destination to complete transfers.",
+					"• Travel Suppliers: Airlines, hotels, and consolidators receive data necessary to process tickets and room bookings.",
+					"• Payment Gateways: Transaction data is shared securely with Paystack to complete and verify card payments.",
+					"• Regulatory and Legal Bodies: We may disclose data when legally required by law enforcement or government authorities to comply with security regulations."
+				]
+			},
+			{
+				"title": "6. Data Security and Encrypted Safeguards",
+				"paragraphs": [
+					"Your trust is highly valued. We implement industry-standard administrative, physical, and technical security measures to protect your personal data from unauthorized access, modification, or exposure.",
+					"All data transmissions are encrypted using Secure Socket Layer (SSL/TLS) technology, and stored databases are restricted to authorized personnel with strict multi-factor authentication controls."
+				]
+			},
+			{
+				"title": "7. Your Rights and Access to Your Data",
+				"paragraphs": [
+					"You have the right to request access to the personal data we hold about you, request corrections to out-of-date or inaccurate records, or ask for the deletion of your account details. To exercise these rights or voice privacy concerns, please contact our data compliance officer at compliance@quantumtravels.com."
+				]
+			}
+		]
+	},
+	"cookie-policy": {
+		"title": "Cookies",
+		"description": "Read the Quantum Travels cookie policy.",
+		"updatedDate": "Updated 30 May 2026",
+		"sections": [
+			{
+				"title": "Cookies",
+				"paragraphs": [
+					"At Quantum Travels, we value the privacy of our visitors and customers. We also know that people are concerned about how their online activity can be monitored, and what information is shared with other companies.",
+					"One of the most common ways websites track and save information about their visitors is through the use of cookies. A cookie is a small file of text, often encrypted for privacy, that is used to store information between visits to a website. Modern internet browsers allow you to see what cookies are currently stored on your computer, and selectively delete them as you wish.",
+					"We use cookies to keep track of your current shopping session so that you may retrieve your shopping basket at any time, and to personalise the contents our website as well as to ensure a consistent experience. We also use cookies to track how visitors interact with our website to monitor how we are performing. No personally identifiable information is stored in these cookies.",
+					"Please contact us if you have any questions about our Privacy Policy."
+				]
+			},
+			{
+				"title": "Google Analytics",
+				"paragraphs": [
+					"Google Analytics is a commonly used online tool that allows Quantum Travels to see how well we are doing when helping people shop online. It records information including how you reached the Quantum Travels site, the city and county that you're browsing from, and what browser you are using. We can then see how people used the Quantum Travels website to purchase from us. Google Analytics is invaluable in helping us improve our service. We never pass any personally identifiable information over to Google.",
+					"The Google Analytics cookies are named __utma, __utmb, __utmc, __utmli and __utmz"
+				]
+			}
+		]
+	},
+	"terms-conditions": {
+		"title": "Terms & Conditions",
+		"description": "Read the Quantum Travels terms and conditions.",
+		"updatedDate": "Updated 30 May 2026",
+		"intro": [
+			"Welcome to the Quantum Travels portal. By accessing our website, booking travel services, or setting up a corporate account, you agree to comply with and be bound by the following Terms and Conditions.",
+			"These terms govern our relationship with you regarding our website, applications, and general travel services. Please read them carefully before utilizing our booking services."
+		],
+		"sections": [
+			{
+				"title": "1. Booking Validity and Pricing",
+				"paragraphs": [
+					"All booking requests submitted through our platform are subject to availability and final confirmation by the respective travel suppliers (airlines, hotel operators, and local transport networks).",
+					"• Pricing: Displayed prices are in Nigerian Naira (NGN), United States Dollar (USD), or Euro (EUR). Rates are subject to change due to fuel surcharges, tax updates, or supplier rate variations until a booking is paid in full and confirmed.",
+					"• Payment: Payments are processed securely via third-party systems like Paystack. A booking request is only completed upon receipt of a successful payment confirmation and receipt."
+				]
+			},
+			{
+				"title": "2. Car Hire & Airport Transfers Policies",
+				"paragraphs": [
+					"Our car hire, airport pickup, and airport drop-off services are subject to specific operational rules:",
+					"• Information Accuracy: Customers must provide exact pickup addresses, drop-off airport terminals, dates, times, and correct flight numbers (vital for monitoring delays in pickup mode).",
+					"• Cancellation Fees: To maintain high service standards, a 100% cancellation fee applies to all airport transfer reservations cancelled less than 48 hours before the scheduled pickup time. Cancellation requests made earlier are eligible for refunds or service credits, subject to handling fees.",
+					"• Flight Delays: We monitor flight numbers. However, in the event of major delays exceeding 2 hours, customers should contact our emergency support team directly to coordinate driver scheduling."
+				]
+			},
+			{
+				"title": "3. Passenger Obligations and Travel Documents",
+				"paragraphs": [
+					"It is the sole responsibility of the passenger to ensure they hold all valid travel documentation required for their journey, including passports (with at least 6 months validity), visa approvals, immunization records, and travel insurance.",
+					"Quantum Travels will not be held responsible for passengers who are denied boarding, entry, or car rentals due to missing or invalid documentation."
+				]
+			},
+			{
+				"title": "4. Limitation of Liability",
+				"paragraphs": [
+					"Quantum Travels acts primarily as an agent coordinating bookings between passengers and travel suppliers (including airlines, vehicle fleet providers, and corporate event venues).",
+					"We are not liable for any acts, omissions, delays, mechanical breakdowns, itinerary changes, loss of baggage, accidents, or injury caused directly or indirectly by these third-party travel providers."
+				]
+			},
+			{
+				"title": "5. Intellectual Property and Conduct",
+				"paragraphs": [
+					"All design elements, text, graphics, and code templates on this platform are owned by or licensed to Quantum Travels Limited. You may not copy, scrape, or reuse contents for commercial purposes without explicit permission.",
+					"You agree to use our systems only for legitimate bookings and communication, and will not submit false passenger records or mock bookings."
+				]
+			},
+			{
+				"title": "6. Governing Law and Disputes",
+				"paragraphs": [
+					"These Terms and Conditions are governed by and construed in accordance with the laws of the Federal Republic of Nigeria.",
+					"Any dispute arising out of or related to these terms shall be subject to the exclusive jurisdiction of the competent courts in Lagos State, Nigeria."
+				]
+			}
+		]
+	}
+}
