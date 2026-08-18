@@ -84,17 +84,6 @@ export default function CarServicesSelection({
 	useEffect(() => {
 		if (!selectedDateStr || !bookingDetails) return;
 
-		const selectedCity =
-			serviceType === "airport_pickup"
-				? bookingDetails.secondLocation
-				: bookingDetails.firstLocation;
-
-		if (selectedCity.trim().toLowerCase() !== "lagos") {
-			setCars([]);
-			setLoading(false);
-			return;
-		}
-
 		async function fetchCars() {
 			setLoading(true);
 			try {
@@ -116,13 +105,6 @@ export default function CarServicesSelection({
 	const firstLocation = bookingDetails?.firstLocation || "";
 	const secondLocation = bookingDetails?.secondLocation || "";
 	const selectedTime = bookingDetails?.time || "";
-	const selectedCity =
-		serviceType === "airport_pickup" ? secondLocation : firstLocation;
-	const needsRequest =
-		Boolean(selectedCity.trim()) &&
-		selectedCity.trim().toLowerCase() !== "lagos";
-	const requestHref = `/services/car-services/${serviceType === "airport_pickup" ? "pickup" : "dropoff"}/request`;
-
 	// Generate 7 days around the selected date
 	const days = useMemo(() => {
 		if (!selectedDateStr) return [];
@@ -370,29 +352,6 @@ export default function CarServicesSelection({
 										className="h-[360px] md:h-[260px] w-full rounded-[10px] bg-white/60 animate-pulse shadow-[0px_2px_8px_rgba(0,0,0,0.03)]"
 									/>
 								))}
-							</div>
-						) : needsRequest ? (
-							<div className="flex flex-col items-center justify-center py-12 px-4 text-center">
-								<div className="relative size-[140px] overflow-hidden shrink-0">
-									<Image
-										src="/ourServices/emptyState.svg"
-										alt="Request pricing globe"
-										fill
-										priority
-										className="object-contain"
-									/>
-								</div>
-								<p className="text-[16px] md:text-[20px] font-medium text-text text-center mt-8 leading-relaxed max-w-xl mx-auto">
-									We can&apos;t provide instant pricing for this location. Click
-									below to submit a request, and we&apos;ll get back to you
-									shortly.
-								</p>
-								<Link
-									href={requestHref}
-									className="mt-6 flex h-12 md:h-14 w-[220px] md:w-[260px] items-center justify-center rounded-full bg-[#9E328A] text-[14px] md:text-base font-bold text-white transition-colors hover:bg-[#8a2b78] active:scale-99 shadow-[0px_4px_12px_rgba(158,50,138,0.2)]"
-								>
-									Send Request
-								</Link>
 							</div>
 						) : availableCars.length === 0 ? (
 							<div className="flex flex-col items-center justify-center py-12 px-4 text-center">

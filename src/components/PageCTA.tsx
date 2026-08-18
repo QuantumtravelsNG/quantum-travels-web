@@ -77,3 +77,46 @@ export default function PageCTA({
 		</section>
 	);
 }
+
+export function PageCTAFull({
+	title,
+	subtitle,
+	className,
+	btnVariant = "primary",
+	btnLabel,
+	btnHref,
+}: PageCTAProps) {
+	return (
+		<section className="px-4 md:px-16 max-w-7xl mx-auto w-full overflow-hidden rounded-[8px] md:rounded-[10px]">
+			<div className="relative isolate h-fit overflow-hidden rounded-[8px] md:min-h-[280px] md:rounded-[10px]">
+				<div className={cn("absolute inset-0 h-full w-full ", className)}>
+					<Image
+						src="/assets/quantumBg.png"
+						alt=""
+						fill
+						className="object-cover"
+						sizes="(min-width: 768px) 585px, 760px"
+					/>
+				</div>
+
+				<div className="relative z-10 flex h-fit items-center px-12 py-10 md:min-h-[280px] justify-center text-center md:px-10 my-auto">
+					<div className=" text-white space-y-3 my-auto h-fit">
+						<h2 className="text-lg leading-normal font-bold md:text-2xl whitespace-pre-line">
+							{title}
+						</h2>
+						<p className="text-base leading-[1.8] font-medium ">{subtitle}</p>
+						<Link
+							href={btnHref}
+							className={cn(
+								"inline-flex h-[38px] items-center justify-center rounded-[50px] px-8 text-xs font-bold transition-colors md:h-14 md:text-base mt-1.5 active:scale-99",
+								buttonVariantClasses[btnVariant],
+							)}
+						>
+							{btnLabel}
+						</Link>
+					</div>
+				</div>
+			</div>
+		</section>
+	);
+}

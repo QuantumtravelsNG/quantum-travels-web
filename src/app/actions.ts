@@ -20,7 +20,7 @@ import type {
 import { isValidDateValue, getTodayDateValue } from "@/lib/date-values";
 import { parseLocationValues } from "@/lib/locations";
 import { isValidPhoneNumberValue } from "@/lib/phone";
-import { airports as airportOptions } from "@/lib/rawdata";
+import { searchAirports } from "@/lib/airports";
 
 type AirportBookingPaymentData = {
   paymentUrl?: string;
@@ -75,9 +75,9 @@ const CAR_HIRE_DURATIONS = [
 const CAR_HIRE_VEHICLE_TYPES = [
   "Sedan",
   "SUV",
-  "Executive",
   "Van",
-  "Bus",
+  "Hiace Bus",
+  "Coaster Bus",
 ] as const;
 const CAR_HIRE_PASSENGERS = [
   "1",
@@ -90,6 +90,7 @@ const CAR_HIRE_PASSENGERS = [
   "8",
   "9",
   "10",
+  "10+",
 ] as const;
 const CAR_HIRE_TRIP_TYPES = ["Intra-State", "Inter-State"] as const;
 const CAR_HIRE_VEHICLE_COUNTS = ["1", "2", "3", "4", "5", "5+"] as const;
@@ -304,6 +305,10 @@ function validateAirportBookingPayload(
     return "Full address must be 180 characters or fewer.";
   }
 
+  if (airportDetails.address.trim().length > 180) {
+    return "Address must be 180 characters or fewer.";
+  }
+
   if (
     !passengerDetails ||
     !isNonEmptyString(passengerDetails.fullName) ||
@@ -514,10 +519,6 @@ function validateCarHirePayload(payload: CarHireBookingPayload) {
 
 function isValidTimeValue(value: string) {
   return /^([01]\d|2[0-3]):[0-5]\d$/.test(value);
-}
-
-function getAirportIata(airportName: string) {
-  return airportName.match(/\(([A-Z0-9]{3})\)\s*$/)?.[1] ?? airportName;
 }
 
 function validateCorporateEventPayload(payload: CorporateEventPayload) {
@@ -848,19 +849,9 @@ export async function searchAirportsAction(
     return [];
   }
 
-  const normalizedQuery = query.toLowerCase().trim();
-
-  const results = airportOptions.filter((airport) => {
-    const nameMatch = airport.name.toLowerCase().includes(normalizedQuery);
-    const iataMatch = getAirportIata(airport.name).toLowerCase().includes(
-      normalizedQuery,
-    );
-    return nameMatch || iataMatch;
-  });
-
-  return results.slice(0, 10).map((airport) => ({
+  return searchAirports(query).map((airport) => ({
     name: airport.name,
-    iata: getAirportIata(airport.name),
+    iata: airport.iata ?? airport.name,
   }));
 }
 

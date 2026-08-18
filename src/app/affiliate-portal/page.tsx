@@ -1,6 +1,6 @@
 import AffiliateGettingStarted from "@/components/affiliate/AffiliateGettingStarted";
 import AffiliatePortalHero from "@/components/affiliate/AffiliatePortalHero";
-import PageCTA from "@/components/PageCTA";
+import { PageCTAFull } from "@/components/PageCTA";
 
 export const metadata = {
 	title: "Affiliate Portal",
@@ -15,7 +15,7 @@ export default function AffiliatePortalPage() {
 			<AffiliateGettingStarted />
 			<div className="px-4 pb-10 md:px-10 md:pb-16">
 				<div className="mx-auto max-w-300">
-					<PageCTA
+					<PageCTAFull
 						title="Want to Know More about Our Affiliate Programme?"
 						subtitle="Ask us anything."
 						image="/affiliate/affiliateCTAImage.jpg"

@@ -3,11 +3,11 @@ import Hero from "@/components/home/Hero";
 import ServicesBar from "@/components/home/ServicesBar";
 import UltimateTravelExperience from "@/components/home/UltimateTravelExperience";
 import DiscoverBySea from "@/components/home/DiscoverBySea";
-import AdsSection from "@/components/home/AdsSection";
-import ArriveLikeAVIP from "@/components/home/Arrival";
+// import AdsSection from "@/components/home/AdsSection";
+// import ArriveLikeAVIP from "@/components/home/Arrival";
 import ProvidersCarousel from "@/components/home/ProvidersCarousel";
 import NewsletterSection from "@/components/home/NewsletterSection";
-import { getHomepageData } from "@/lib/quantum-api";
+import { getFeaturedTourPackages, getHomepageData } from "@/lib/quantum-api";
 
 export const metadata = {
 	title: "Home",
@@ -18,22 +18,31 @@ export const metadata = {
 export const revalidate = 300;
 
 export default async function HomePage() {
-	const homepage = await getHomepageData();
+	const [homepage, featuredTours] = await Promise.all([
+		getHomepageData(),
+		getFeaturedTourPackages(),
+	]);
 
 	return (
 		<main>
-			<Hero image={homepage.heroSection} heroUrl={homepage.heroURL} />
+			<Hero
+				image={homepage.heroSection}
+				mobileImage={homepage.heroSectionMobile}
+				bannerText={homepage.heroBannerText}
+			/>
 			<div className="py-6 md:py-10" id="explore">
 				<FancyText
 					backdrop="Travel the right way"
-					foreground="The quantum way"
+					foreground="The quantum advantage"
 				/>
 			</div>
 			<ServicesBar />
-			<UltimateTravelExperience tours={homepage.holidayPackages} />
+			{featuredTours.length > 0 && (
+				<UltimateTravelExperience tours={featuredTours} />
+			)}
 			<DiscoverBySea />
-			<AdsSection ads={homepage.ads} />
-			<ArriveLikeAVIP />
+			{/* <AdsSection ads={homepage.ads} /> */}
+			{/* <ArriveLikeAVIP /> */}
 			<NewsletterSection />
 			<ProvidersCarousel />
 		</main>

@@ -3,7 +3,8 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import Chatbot from "@/components/Chatbot";
+import Chatbot from "@/components/qora-chatbot";
+import AmplitudeAnalytics from "@/components/AmplitudeAnalytics";
 
 const jost = Montserrat({
 	variable: "--font-jost",
@@ -59,6 +60,7 @@ export default function RootLayout({
 			data-scroll-behavior="smooth"
 		>
 			<body className="min-h-full flex flex-col">
+				<AmplitudeAnalytics />
 				<Navbar />
 				<div className="flex-1 ">{children}</div>
 				<Footer />

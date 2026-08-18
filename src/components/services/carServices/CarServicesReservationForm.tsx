@@ -59,7 +59,7 @@ const MODE_CONFIG: Record<BookingMode, BookingModeConfig> = {
 		route: "/services/car-services/pickup",
 		fields: {
 			primaryLabel: "Pick Up From Airport",
-			secondaryLabel: "Drop Off Address (Select City)",
+			secondaryLabel: "Drop Off Address",
 			thirdLabel: "Pick Up Date",
 			fourthLabel: "Pick Up Time",
 		},
@@ -68,7 +68,7 @@ const MODE_CONFIG: Record<BookingMode, BookingModeConfig> = {
 		label: "Airport Drop Off",
 		route: "/services/car-services/dropoff",
 		fields: {
-			primaryLabel: "Pick Up Address (Select City)",
+			primaryLabel: "Pick Up Address",
 			secondaryLabel: "Drop Off At Airport",
 			thirdLabel: "Pick Up Date",
 			fourthLabel: "Pick Up Time",
@@ -98,9 +98,7 @@ const PICKUP_TIME_OPTIONS = [
 ];
 
 const RENTAL_DURATION_OPTIONS = [
-	"4 hours",
-	"8 hours",
-	"12 hours",
+	"0 - 12 hours",
 	"1 day",
 	"2 days",
 	"3 days",
@@ -108,21 +106,13 @@ const RENTAL_DURATION_OPTIONS = [
 	"Multiple weeks",
 ];
 
-const VEHICLE_TYPE_OPTIONS = ["Sedan", "SUV", "Executive", "Van", "Bus"];
-const CITY_OPTIONS = [
-	"Lagos",
-	"Ibadan",
-	"Abeokuta",
-	"Ilorin",
-	"Osogbo",
-	"Port Harcourt",
-	"Kano",
-	"Kaduna",
-	"Akure",
-	"Benin",
-	"Uyo",
+const VEHICLE_TYPE_OPTIONS = [
+	"Sedan",
+	"SUV",
+	"Van",
+	"Hiace Bus",
+	"Coaster Bus",
 ];
-
 const EMPTY_BOOKING_FORM: BookingFormState = {
 	primaryLocation: "",
 	secondaryLocation: "",
@@ -291,13 +281,6 @@ export default function CarServicesReservationForm({
 		}
 	}
 
-	function isCityField(field: "primaryLocation" | "secondaryLocation") {
-		return (
-			(mode === "pickup" && field === "secondaryLocation") ||
-			(mode === "dropoff" && field === "primaryLocation")
-		);
-	}
-
 	const [airportSuggestions, setAirportSuggestions] = useState<
 		{ name: string; iata: string }[]
 	>([]);
@@ -310,19 +293,6 @@ export default function CarServicesReservationForm({
 		val: string,
 	) => {
 		updateField(field, val);
-
-		if (isCityField(field)) {
-			const normalizedValue = val.trim().toLowerCase();
-			setActiveSearchField(
-				field === "primaryLocation" ? "primary" : "secondary",
-			);
-			setAirportSuggestions(
-				CITY_OPTIONS.filter((city) =>
-					city.toLowerCase().includes(normalizedValue),
-				).map((city) => ({ name: city, iata: city })),
-			);
-			return;
-		}
 
 		const isAirportField =
 			(mode === "pickup" && field === "primaryLocation") ||
@@ -344,14 +314,6 @@ export default function CarServicesReservationForm({
 			setActiveSearchField(null);
 		}
 	};
-
-	function handleLocationFocus(field: "primaryLocation" | "secondaryLocation") {
-		if (!isCityField(field)) return;
-		setActiveSearchField(field === "primaryLocation" ? "primary" : "secondary");
-		setAirportSuggestions(
-			CITY_OPTIONS.map((city) => ({ name: city, iata: city })),
-		);
-	}
 
 	function handleModeChange(nextMode: BookingMode) {
 		if (isFormDisabled) {
@@ -388,14 +350,10 @@ export default function CarServicesReservationForm({
 			if (!form.secondaryLocation.trim()) {
 				newErrors.secondaryLocation = `${MODE_CONFIG[mode].fields.secondaryLabel} is required.`;
 			}
-			const cityField =
+			const addressField =
 				mode === "pickup" ? "secondaryLocation" : "primaryLocation";
-			const cityValue = form[cityField].trim().toLowerCase();
-			if (
-				cityValue &&
-				!CITY_OPTIONS.some((city) => city.toLowerCase() === cityValue)
-			) {
-				newErrors[cityField] = "Please select a valid city.";
+			if (form[addressField].trim().length > 180) {
+				newErrors[addressField] = "Address must be 180 characters or fewer.";
 			}
 			if (!form.date.trim()) {
 				newErrors.date = "Date is required.";
@@ -499,8 +457,7 @@ export default function CarServicesReservationForm({
 									label={config.fields.secondaryLabel}
 									value={form.secondaryLocation}
 									error={errors.secondaryLocation}
-									readOnly={isCityField("secondaryLocation")}
-									onFocus={() => handleLocationFocus("secondaryLocation")}
+									maxLength={180}
 									onChange={(event) =>
 										handleLocationChange(
 											"secondaryLocation",
@@ -545,8 +502,7 @@ export default function CarServicesReservationForm({
 									label={config.fields.primaryLabel}
 									value={form.primaryLocation}
 									error={errors.primaryLocation}
-									readOnly={isCityField("primaryLocation")}
-									onFocus={() => handleLocationFocus("primaryLocation")}
+									maxLength={180}
 									onChange={(event) =>
 										handleLocationChange("primaryLocation", event.target.value)
 									}
@@ -590,8 +546,7 @@ export default function CarServicesReservationForm({
 									label={config.fields.primaryLabel}
 									value={form.primaryLocation}
 									error={errors.primaryLocation}
-									readOnly={isCityField("primaryLocation")}
-									onFocus={() => handleLocationFocus("primaryLocation")}
+									maxLength={180}
 									onChange={(event) =>
 										handleLocationChange("primaryLocation", event.target.value)
 									}
@@ -632,8 +587,7 @@ export default function CarServicesReservationForm({
 									label={config.fields.secondaryLabel}
 									value={form.secondaryLocation}
 									error={errors.secondaryLocation}
-									readOnly={isCityField("secondaryLocation")}
-									onFocus={() => handleLocationFocus("secondaryLocation")}
+									maxLength={180}
 									onChange={(event) =>
 										handleLocationChange(
 											"secondaryLocation",
@@ -762,7 +716,7 @@ export default function CarServicesReservationForm({
 				<button
 					type="submit"
 					disabled={isFormDisabled}
-					className="mx-auto mt-[18px] flex h-[38px] w-36 items-center justify-center rounded-full bg-[#9E328A] px-8 text-xs font-bold text-white transition-colors hover:bg-[#8a2b78] active:scale-99 disabled:cursor-not-allowed disabled:bg-[#8a2b78] disabled:opacity-80"
+					className="mx-auto mt-[18px] flex h-[38px] w-fit items-center justify-center rounded-full bg-[#9E328A] px-8 text-xs font-bold text-white transition-colors hover:bg-[#8a2b78] active:scale-99 disabled:cursor-not-allowed disabled:bg-[#8a2b78] disabled:opacity-80"
 				>
 					{isFormDisabled ? "Submitting..." : "Reserve Now"}
 				</button>
@@ -809,8 +763,7 @@ export default function CarServicesReservationForm({
 									label={config.fields.secondaryLabel}
 									value={form.secondaryLocation}
 									error={errors.secondaryLocation}
-									readOnly={isCityField("secondaryLocation")}
-									onFocus={() => handleLocationFocus("secondaryLocation")}
+									maxLength={180}
 									onChange={(event) =>
 										handleLocationChange(
 											"secondaryLocation",
@@ -825,9 +778,7 @@ export default function CarServicesReservationForm({
 											}
 										}, 200);
 									}}
-									trailingIcon={
-										<MapPin className="size-5 fill-black stroke-black" />
-									}
+									trailingIcon={<MapPin className="size-5 stroke-black" />}
 									className={
 										isHeroVariant
 											? "h-[54px] pr-12 text-sm md:h-[54px] md:text-sm"
@@ -861,8 +812,7 @@ export default function CarServicesReservationForm({
 									label={config.fields.primaryLabel}
 									value={form.primaryLocation}
 									error={errors.primaryLocation}
-									readOnly={isCityField("primaryLocation")}
-									onFocus={() => handleLocationFocus("primaryLocation")}
+									maxLength={180}
 									onChange={(event) =>
 										handleLocationChange("primaryLocation", event.target.value)
 									}
@@ -874,9 +824,7 @@ export default function CarServicesReservationForm({
 											}
 										}, 200);
 									}}
-									trailingIcon={
-										<MapPin className="size-5 fill-black stroke-black" />
-									}
+									trailingIcon={<MapPin className="size-5 stroke-black" />}
 									className={
 										isHeroVariant
 											? "h-[54px] pr-12 text-sm md:h-[54px] md:text-sm"
@@ -912,8 +860,7 @@ export default function CarServicesReservationForm({
 									label={config.fields.primaryLabel}
 									value={form.primaryLocation}
 									error={errors.primaryLocation}
-									readOnly={isCityField("primaryLocation")}
-									onFocus={() => handleLocationFocus("primaryLocation")}
+									maxLength={180}
 									onChange={(event) =>
 										handleLocationChange("primaryLocation", event.target.value)
 									}
@@ -925,9 +872,7 @@ export default function CarServicesReservationForm({
 											}
 										}, 200);
 									}}
-									trailingIcon={
-										<MapPin className="size-5 fill-black stroke-black" />
-									}
+									trailingIcon={<MapPin className="size-5 stroke-black" />}
 									className={
 										isHeroVariant
 											? "h-[54px] pr-12 text-sm md:h-[54px] md:text-sm"
@@ -960,8 +905,7 @@ export default function CarServicesReservationForm({
 									label={config.fields.secondaryLabel}
 									value={form.secondaryLocation}
 									error={errors.secondaryLocation}
-									readOnly={isCityField("secondaryLocation")}
-									onFocus={() => handleLocationFocus("secondaryLocation")}
+									maxLength={180}
 									onChange={(event) =>
 										handleLocationChange(
 											"secondaryLocation",
@@ -976,9 +920,7 @@ export default function CarServicesReservationForm({
 											}
 										}, 200);
 									}}
-									trailingIcon={
-										<MapPin className="size-5 fill-black stroke-black" />
-									}
+									trailingIcon={<MapPin className="size-5 stroke-black" />}
 									className={
 										isHeroVariant
 											? "h-[54px] pr-12 text-sm md:h-[54px] md:text-sm"
@@ -1123,7 +1065,7 @@ export default function CarServicesReservationForm({
 					<button
 						type="submit"
 						disabled={isFormDisabled}
-						className={`flex shrink-0 items-center justify-center text-nowrap rounded-full bg-[#9E328A] font-bold text-white transition-colors hover:bg-[#8a2b78] active:scale-99 disabled:cursor-not-allowed disabled:bg-[#8a2b78] disabled:opacity-80 ${isHeroVariant ? "h-[44px] w-fit px-6 text-sm" : "h-14 w-[180px] px-8 text-base"}`}
+						className={`flex shrink-0 items-center justify-center text-nowrap rounded-full bg-[#9E328A] font-bold text-white transition-colors hover:bg-[#8a2b78] active:scale-99 disabled:cursor-not-allowed disabled:bg-[#8a2b78] disabled:opacity-80 ${isHeroVariant ? "h-[44px] w-fit px-6 text-sm" : "h-14 w-fit px-8 text-base"}`}
 					>
 						{isFormDisabled ? "Submitting..." : "Reserve Now"}
 					</button>

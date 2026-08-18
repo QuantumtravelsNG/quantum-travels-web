@@ -48,15 +48,19 @@ export default function Navbar() {
 	const isTransparent = isHome && !scrolled && !isMobileMenuOpen;
 
 	const headerBgClass = isTransparent
-		? "bg-transparent text-white"
+		? "bg-white text-text shadow-[0px_1px_6px_0px_rgba(0,0,0,0.1)]"
 		: "bg-white text-text shadow-[0px_1px_6px_0px_rgba(0,0,0,0.1)]";
 
+	// const headerBgClass = isTransparent
+	// 	? "bg-transparent text-primary"
+	// 	: "bg-white text-text shadow-[0px_1px_6px_0px_rgba(0,0,0,0.1)]";
+
 	const quantumLogoSrc = isTransparent
-		? "/assets/quantumLogoWhite.svg"
+		? "/assets/quantumLogo.svg"
 		: "/assets/quantumLogo.svg";
 
 	const dbLogoSrc = isTransparent
-		? "/assets/dunAndBradstreetWhite.svg"
+		? "/assets/dunAndBradstreet.svg"
 		: "/assets/dunAndBradstreet.svg";
 
 	const isActiveRoute = (href: string) =>
@@ -101,6 +105,16 @@ export default function Navbar() {
 							sizes="51px"
 						/>
 					</Link>
+
+					<div className="hidden md:block relative h-12 w-12">
+						<Image
+							src="/assets/dunsQRCode.png"
+							alt="Dun & Bradstreet Logo"
+							fill
+							className="object-contain"
+							sizes="51px"
+						/>
+					</div>
 				</div>
 
 				<nav className="hidden md:flex items-center gap-10">
@@ -194,7 +208,7 @@ export default function Navbar() {
 						>
 							<SheetTrigger>
 								<Menu
-									className={`h-6 w-6 ${isTransparent ? "text-white" : "text-text"}`}
+									className={`h-6 w-6 ${isTransparent ? "text-primary" : "text-text"}`}
 								/>
 							</SheetTrigger>
 							<SheetContent
@@ -291,7 +305,7 @@ export default function Navbar() {
 										})}
 									</div>
 
-									<div className="mt-8 px-6 flex items-center gap-2">
+									<div className="mt-8 px-6 flex items-center gap-6 w-full">
 										<span className="flex items-center gap-1 text-base font-black text-text">
 											<Image
 												src="/home/nigFlag.png"
@@ -302,6 +316,31 @@ export default function Navbar() {
 											/>
 											EN
 										</span>
+
+										<Link
+											className="relative h-[46px] w-[51px]"
+											href="https://profiles.dunsregistered.com/TPSAME-BAS-004.aspx/"
+											rel="noopener noreferrer"
+											target="_blank"
+										>
+											<Image
+												src={dbLogoSrc}
+												alt="Dun & Bradstreet Logo"
+												fill
+												className="object-contain"
+												sizes="51px"
+											/>
+										</Link>
+
+										<div className="relative h-12 w-12">
+											<Image
+												src="/assets/dunsQRCode.png"
+												alt="Dun & Bradstreet Logo"
+												fill
+												className="object-contain"
+												sizes="51px"
+											/>
+										</div>
 									</div>
 								</div>
 							</SheetContent>

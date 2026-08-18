@@ -210,13 +210,8 @@ export default function GalleryContent({ folders }: GalleryContentProps) {
 		<section className="mx-auto w-full max-w-[1244px] px-5 pb-10 pt-8 md:px-0 md:pb-16 md:pt-[82px]">
 			<div className="max-w-7xl">
 				<h1 className="max-w-[340px] text-2xl leading-normal font-black text-text md:max-w-none md:text-[44px]">
-					Journey With Us{" "}
-					<span className="text-[#9E328A]">Through The Years</span>
+					Gallery
 				</h1>
-				<p className="mt-2 max-w-[835px] text-base font-light leading-[1.8] text-text md:text-[22px]">
-					Moments that tell our story capturing the events, campaigns, and
-					community engagements that shape our journey.
-				</p>
 			</div>
 
 			<div className="mt-6 border-b border-black/20 md:mt-7 h-fit">

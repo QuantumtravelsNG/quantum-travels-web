@@ -297,15 +297,15 @@ export default function VisaApplicationDetails({ visa }: { visa: VisaType }) {
 
 								<div className="space-y-2 md:space-y-3">
 									<InfoRow
-										icon={<BookOpenText className="size-4 fill-black" />}
+										icon={<BookOpenText className="size-4 stroke-black" />}
 										text={visa.type}
 									/>
 									<InfoRow
-										icon={<Clock3 className="size-4 fill-black" />}
+										icon={<Clock3 className="size-4 stroke-black" />}
 										text={visa.processingTime}
 									/>
 									<InfoRow
-										icon={<CalendarDays className="size-4 fill-black" />}
+										icon={<CalendarDays className="size-4 stroke-black" />}
 										text={visa.validity}
 									/>
 								</div>
@@ -317,16 +317,16 @@ export default function VisaApplicationDetails({ visa }: { visa: VisaType }) {
 								Details
 							</h2>
 
-							<div className="mt-2">
+							{/* <div className="mt-2">
 								<p className="text-xs font-medium md:text-base">
 									Required Documents
 								</p>
 								<p className="mt-2 text-[15px] leading-[1.5] font-light md:text-lg">
 									{visa.requiredDocuments}
 								</p>
-							</div>
+							</div> */}
 
-							<div className="mt-4 md:mt-5">
+							<div className="mt-2 md:mt-4">
 								<DetailRule />
 							</div>
 
@@ -388,7 +388,7 @@ export default function VisaApplicationDetails({ visa }: { visa: VisaType }) {
 								className={disabledFieldClassName}
 							/>
 
-							<div className="grid grid-cols-2 gap-2 md:gap-3.5">
+							<div className="grid gap-2 md:grid-cols-2 md:gap-3.5">
 								<FloatingInput
 									id="visa-email"
 									type="email"
@@ -418,7 +418,7 @@ export default function VisaApplicationDetails({ visa }: { visa: VisaType }) {
 								/>
 							</div>
 
-							<div className="grid grid-cols-2 gap-2 md:gap-3.5">
+							<div className="grid gap-2 md:grid-cols-2 md:gap-3.5">
 								<FloatingInput
 									id="visa-applicants"
 									type="text"

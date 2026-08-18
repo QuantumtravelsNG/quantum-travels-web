@@ -25,6 +25,8 @@ import {
 	FloatingSelect,
 } from "@/components/ui/floating-fields";
 import { isValidPhoneNumberValue } from "@/lib/phone";
+import flags from "react-phone-number-input/flags";
+import { regionalIndicatorToCountryCode } from "@/lib/country-flag";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -182,6 +184,38 @@ function ContactBlock({ contact }: { contact: TourPackage["contact"] }) {
 				</p>
 			) : null}
 		</div>
+	);
+}
+
+function CountryFlag({ flag }: { flag: string }) {
+	if (isRemoteImage(flag)) {
+		return (
+			<Image
+				src={flag}
+				alt=""
+				width={28}
+				height={28}
+				className="size-7 rounded-full object-cover"
+				aria-hidden="true"
+				unoptimized
+			/>
+		);
+	}
+
+	const countryCode = regionalIndicatorToCountryCode(flag);
+	const FlagIcon = countryCode ? flags[countryCode] : undefined;
+
+	return FlagIcon ? (
+		<span
+			className="h-[19px] w-7 shrink-0 overflow-hidden rounded-[2px] shadow-sm ring-1 ring-black/10 [&>svg]:block [&>svg]:size-full"
+			aria-hidden="true"
+		>
+			<FlagIcon title={`${countryCode} flag`} />
+		</span>
+	) : (
+		<span className="text-2xl" aria-hidden="true">
+			{flag}
+		</span>
 	);
 }
 
@@ -406,28 +440,9 @@ export default function TourDetailView({ tour }: { tour: TourPackage }) {
 								</p>
 								{tour.countryFlags && tour.countryFlags.length > 0 && (
 									<div className="flex gap-1.5 items-center">
-										{tour.countryFlags.map((flag, i) =>
-											isRemoteImage(flag) ? (
-												<Image
-													key={`${flag}-${i}`}
-													src={flag}
-													alt=""
-													width={28}
-													height={28}
-													className="size-7 rounded-full object-cover"
-													aria-hidden="true"
-													unoptimized
-												/>
-											) : (
-												<span
-													key={`${flag}-${i}`}
-													className="text-2xl"
-													aria-hidden="true"
-												>
-													{flag}
-												</span>
-											),
-										)}
+										{tour.countryFlags.map((flag, i) => (
+											<CountryFlag key={`${flag}-${i}`} flag={flag} />
+										))}
 									</div>
 								)}
 							</div>
@@ -857,7 +872,7 @@ export default function TourDetailView({ tour }: { tour: TourPackage }) {
 								</div>
 
 								{/* Email + Phone */}
-								<div className="flex gap-3">
+								<div className="flex flex-col gap-3 md:flex-row">
 									<FloatingInput
 										id="booking-email"
 										type="email"

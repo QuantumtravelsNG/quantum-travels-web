@@ -26,6 +26,8 @@ export interface TourItinerary {
 
 export interface TourPackage {
   id: string;
+  isActive: boolean;
+  isFeatured: boolean;
   title: string;
   location: string;
   countryFlags: string[];
@@ -57,7 +59,7 @@ export interface VisaType {
   description: string;
   processingTime: string;
   requirements: string[];
-  requiredDocuments: string;
+  requiredDocuments: string[];
   supportPhone: string;
   supportEmail: string;
   terms: string;

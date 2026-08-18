@@ -206,7 +206,7 @@ Customer-facing forms validate in the client, call Server Actions, display API e
 
 Airport pickup/dropoff flow:
 
-1. The reservation form searches the local `airports` package through a Server Action.
+1. The reservation form searches the local airport dataset through a Server Action.
 2. Search details are stored temporarily in `sessionStorage`.
 3. The selection page requests live vehicle availability for the service type and date.
 4. The booking form submits passenger and selected vehicle details.
@@ -270,6 +270,6 @@ Recommended workflow:
 5. Run lint, type-checking, and a production build before pushing.
 
 
-knt dev
+knt dev push
 
 

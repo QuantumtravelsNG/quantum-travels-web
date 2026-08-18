@@ -2,7 +2,7 @@
 
 import { useMemo, useState, FormEvent } from "react";
 import Image from "next/image";
-import { CalendarDays, Info } from "lucide-react";
+import { CalendarDays, Info, Mail, Phone } from "lucide-react";
 import { submitCarHireBooking } from "@/app/actions";
 import {
 	FloatingInput,
@@ -59,7 +59,7 @@ const initialValues: FormValues = {
 	vehicleType: "",
 	passengers: "",
 	tripType: "",
-	numberOfVehicles: "",
+	numberOfVehicles: "1",
 	addons: [],
 	fullName: "",
 	companyName: "",
@@ -76,9 +76,7 @@ function isValidEmail(value: string) {
 }
 
 const DURATION_OPTIONS = [
-	"4 hours",
-	"8 hours",
-	"12 hours",
+	"0 - 12 hours",
 	"1 day",
 	"2 days",
 	"3 days",
@@ -86,9 +84,29 @@ const DURATION_OPTIONS = [
 	"Multiple weeks",
 ];
 
-const VEHICLE_TYPE_OPTIONS = ["Sedan", "SUV", "Executive", "Van", "Bus"];
+const VEHICLE_CAPACITIES: Record<string, number> = {
+	Sedan: 3,
+	SUV: 4,
+	Van: 10,
+	"Hiace Bus": 10,
+	"Coaster Bus": 10,
+};
 
-const PASSENGERS_OPTIONS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+const VEHICLE_TYPE_OPTIONS = Object.keys(VEHICLE_CAPACITIES);
+
+const PASSENGERS_OPTIONS = [
+	"1",
+	"2",
+	"3",
+	"4",
+	"5",
+	"6",
+	"7",
+	"8",
+	"9",
+	"10",
+	"10+",
+];
 
 const TRIP_TYPE_OPTIONS = ["Intra-State", "Inter-State"];
 
@@ -263,6 +281,13 @@ export default function CarServicesHireForm() {
 
 		setValues((current) => {
 			const nextValues = { ...current, [name]: value };
+			if (
+				name === "vehicleType" &&
+				Number.parseInt(current.passengers, 10) >
+					(VEHICLE_CAPACITIES[String(value)] ?? 0)
+			) {
+				nextValues.passengers = "";
+			}
 
 			if (touched[name]) {
 				setErrors((currentErrors) => ({
@@ -433,12 +458,20 @@ export default function CarServicesHireForm() {
 								sizes="360px"
 							/>
 							<div className="absolute inset-0 bg-[#9e328a]/40" />
-							<div className="relative z-10 p-10 text-white">
+							<div className="relative z-10 py-10 px-6 text-white">
 								<h1 className="text-4xl font-black leading-normal font-sans">
 									{desktopSectionHeading}
 								</h1>
 								<p className="mt-4 text-[20px] leading-[1.4] font-medium font-sans">
 									{desktopSectionCopy}
+								</p>
+								<p className="text-md mt-2">
+									<Phone className="size-5 inline-block stroke-current stroke-2 mr-2" />
+									08122934216
+								</p>
+								<p className="text-md mt-2 word-break">
+									<Mail className="size-5 inline-block stroke-current stroke-2 mr-2" />
+									logistics@quantumtravelsng.com
 								</p>
 							</div>
 						</div>
@@ -618,7 +651,14 @@ export default function CarServicesHireForm() {
 										>
 											<option value="">Select Passengers</option>
 											{PASSENGERS_OPTIONS.map((opt) => (
-												<option key={opt} value={opt}>
+												<option
+													key={opt}
+													value={opt}
+													disabled={
+														Number.parseInt(opt, 10) >
+														(VEHICLE_CAPACITIES[values.vehicleType] ?? 0)
+													}
+												>
 													{opt}
 												</option>
 											))}

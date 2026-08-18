@@ -1,4 +1,4 @@
-import CarServicesAlternateRequestForm from "@/components/services/carServices/CarServicesAlternateRequestForm";
+import { redirect } from "next/navigation";
 
 export const metadata = {
 	title: "Airport Drop Off Request",
@@ -6,9 +6,5 @@ export const metadata = {
 };
 
 export default function CarServicesDropoffRequestPage() {
-	return (
-		<main className="min-h-screen w-full pt-15 md:pt-22 bg-[#F8F8F8]">
-			<CarServicesAlternateRequestForm serviceType="airport_dropoff" />
-		</main>
-	);
+	redirect("/services/car-services/dropoff");
 }

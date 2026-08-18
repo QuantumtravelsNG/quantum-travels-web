@@ -13,7 +13,7 @@ import {
 import BookingSuccessDialog from "@/components/services/carServices/BookingSuccessDialog";
 import { getTodayDateValue, isValidDateValue } from "@/lib/date-values";
 import { isValidPhoneNumberValue } from "@/lib/phone";
-import { airports } from "@/lib/rawdata";
+import { airports } from "@/lib/airports";
 
 const EMAIL_REGEX =
 	/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\.[a-zA-Z]{2,}$/;
@@ -144,18 +144,25 @@ function AutocompleteField({
 	label: string;
 	value: string;
 	error?: string;
-	options: readonly string[];
+	options: readonly (string | { label: string; keyword: readonly string[] })[];
 	onBlur: () => void;
 	onChange: (value: string) => void;
 }) {
 	const [open, setOpen] = useState(false);
 	const matches = useMemo(() => {
 		const query = value.trim().toLowerCase();
-		return (
-			query
-				? options.filter((option) => option.toLowerCase().includes(query))
-				: options
-		).slice(0, 8);
+		return options
+			.map((option) =>
+				typeof option === "string" ? { label: option, keyword: [] } : option,
+			)
+			.filter(
+				(option) =>
+					!query ||
+					[option.label, ...option.keyword].some((term) =>
+						term.toLowerCase().includes(query),
+					),
+			)
+			.slice(0, 8);
 	}, [options, value]);
 
 	return (
@@ -182,16 +189,16 @@ function AutocompleteField({
 				<div className="absolute z-50 top-[calc(100%+4px)] right-0 left-0 max-h-56 overflow-y-auto rounded-[5px] border border-black/10 bg-white py-1 shadow-[0px_4px_16px_rgba(0,0,0,0.1)]">
 					{matches.map((option) => (
 						<button
-							key={option}
+							key={option.label}
 							type="button"
 							onMouseDown={(event) => {
 								event.preventDefault();
-								onChange(option);
+								onChange(option.label);
 								setOpen(false);
 							}}
 							className="w-full cursor-pointer px-4 py-2.5 text-left text-xs font-light text-text transition-colors hover:bg-[#9E328A]/5 hover:text-[#9E328A] md:text-sm"
 						>
-							{option}
+							{option.label}
 						</button>
 					))}
 				</div>
@@ -214,7 +221,11 @@ export default function CarServicesAlternateRequestForm({
 
 	const minDate = useMemo(() => getTodayDateValue(), []);
 	const airportOptions = useMemo(
-		() => airports.map((airport) => airport.name),
+		() =>
+			airports.map((airport) => ({
+				label: airport.name,
+				keyword: airport.keyword,
+			})),
 		[],
 	);
 	const isPickup = serviceType === "airport_pickup";

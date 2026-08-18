@@ -26,7 +26,7 @@ import {
 import { formatDateValueForDisplay, isValidDateValue } from "@/lib/date-values";
 import { isValidPhoneNumberValue } from "@/lib/phone";
 import { isRemoteImage } from "@/lib/images";
-import { airports } from "@/lib/rawdata";
+import { airports } from "@/lib/airports";
 import type {
 	Car,
 	PassengerDetails,
@@ -92,7 +92,7 @@ export default function CarServicesBookingForm({
 	const [phone, setPhone] = useState("");
 	const [alternativePhone, setAlternativePhone] = useState("");
 	// const [whatsappNumber, setWhatsappNumber] = useState("");
-	const [fullAddress, setFullAddress] = useState("");
+	// const [fullAddress, setFullAddress] = useState("");
 	const [flightNumber, setFlightNumber] = useState("");
 	const [terminal, setTerminal] = useState("");
 	const [noteForDriver, setNoteForDriver] = useState("");
@@ -155,8 +155,12 @@ export default function CarServicesBookingForm({
 	const terminalOptions: readonly string[] =
 		selectedAirportOption?.terminals ?? [];
 	const hasTerminalOptions = terminalOptions.length > 0;
+	const defaultTerminal =
+		terminalOptions.length === 1 ? terminalOptions[0] : "";
 	const terminalValue =
-		hasTerminalOptions && !terminalOptions.includes(terminal) ? "" : terminal;
+		hasTerminalOptions && !terminalOptions.includes(terminal)
+			? defaultTerminal
+			: terminal;
 
 	// Format Date for UI (e.g. Mar 24, 2026)
 	const formatUIDate = (dateStr: string) => {
@@ -208,11 +212,11 @@ export default function CarServicesBookingForm({
 					return "Please select a valid terminal.";
 				}
 				return "";
-			case "fullAddress":
-				if (!value.trim()) return "Full address is required.";
-				return value.trim().length <= 180
-					? ""
-					: "Full address must be 180 characters or fewer.";
+			// case "fullAddress":
+			// 	if (!value.trim()) return "Full address is required.";
+			// 	return value.trim().length <= 180
+			// 		? ""
+			// 		: "Full address must be 180 characters or fewer.";
 			default:
 				return "";
 		}
@@ -228,7 +232,7 @@ export default function CarServicesBookingForm({
 		else if (name === "phone") setPhone(val);
 		else if (name === "alternativePhone") setAlternativePhone(val);
 		// else if (name === "whatsappNumber") setWhatsappNumber(val);
-		else if (name === "fullAddress") setFullAddress(val);
+		// else if (name === "fullAddress") setFullAddress(val);
 		else if (name === "flightNumber") setFlightNumber(val);
 		else if (name === "terminal") setTerminal(val);
 		else if (name === "noteForDriver") setNoteForDriver(val);
@@ -265,7 +269,7 @@ export default function CarServicesBookingForm({
 			email,
 			phone,
 			terminal: terminalValue,
-			fullAddress,
+			// fullAddress,
 		};
 		const nextErrors: Partial<Record<string, string>> = {};
 		let hasErrors = false;
@@ -294,7 +298,7 @@ export default function CarServicesBookingForm({
 			airport: String(airport),
 			terminal: String(terminalValue.trim()),
 			address: String(address),
-			fullAddress: String(fullAddress.trim()),
+			fullAddress: String(address.trim()),
 			pickupDate: String(selectedDateStr),
 			pickupTime: String(selectedTime),
 		};
@@ -611,7 +615,7 @@ export default function CarServicesBookingForm({
 									</span>
 								</div>
 
-								<FloatingInput
+								{/* <FloatingInput
 									id="book-full-address"
 									label="Full Address"
 									value={fullAddress}
@@ -623,7 +627,7 @@ export default function CarServicesBookingForm({
 										updateFieldValue("fullAddress", e.target.value)
 									}
 									className="h-12 md:h-14 text-sm"
-								/>
+								/> */}
 
 								<FloatingInput
 									id="book-flightnumber"

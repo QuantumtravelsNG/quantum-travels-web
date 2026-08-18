@@ -5,27 +5,52 @@ const LEADERS = [
 	{
 		name: "Mr. Michael Otubu",
 		position: "Managing Director",
-		image: "/about/michealOtubu.jpg",
+		image: "/about/michealOtubu.png",
 	},
 	{
 		name: "Mr. Charles Obioha",
 		position: "Executive Director",
-		image: "/about/charlesObioha.jpg",
+		image: "/about/charlesObioha.png",
+	},
+	{
+		name: "Olamide Babayemi",
+		position: "General Manager",
+		image: "/about/olamideBabayemi.png",
+	},
+	{
+		name: "Barakah Olaleye",
+		position: "Group Head, Northern Branch Operations",
+		image: "/about/barakahOlaleye.png",
+	},
+	{
+		name: "Wealth Arumemi",
+		position: "Head, Corporate Sales",
+		image: "/about/wealthArumemi.png",
+	},
+	{
+		name: "Israel Ademola",
+		position: "Manager, Internal Audits & Control",
+		image: "/about/israelAdemola.png",
+	},
+	{
+		name: "Omotoyosi Otemoye",
+		position: "Group Head, Quantum Holidays",
+		image: "/about/omotoyosiOtemoye.png",
+	},
+	{
+		name: "Oluwakanyinsola Savage",
+		position: "Head, Human Capital Management",
+		image: "/about/oluwakanyinsolaSavage.png",
+	},
+	{
+		name: "Lanre Olanipekun",
+		position: "Head, Corporate Operations",
+		image: "/about/lanreOlanipekun.png",
 	},
 	{
 		name: "Adeyinka Aro",
 		position: "Group Head, Finance & Accounts",
 		image: "/about/adeyinkaAro.jpg",
-	},
-	{
-		name: "Wealth Arumemi",
-		position: "Head, Corporate Sales",
-		image: "/about/wealthArumeni.jpg",
-	},
-	{
-		name: "Quantum Managers",
-		position: "",
-		image: "/about/quantumManagers.jpg",
 	},
 ];
 
@@ -38,13 +63,13 @@ interface LeaderCardProps {
 
 function LeaderCard({ name, position, image }: LeaderCardProps) {
 	return (
-		<div className="bg-[#f9f9f9] rounded-md p-4 flex flex-col">
-			<div className="relative w-full h-[290px] rounded-lg overflow-hidden mb-3 shrink-0">
+		<div className="bg-[#f9f9f9] rounded-[12px] p-4 flex flex-col group hover:shadow-xl shadow-black/5 transition-all duration-500">
+			<div className="relative w-full h-[290px] rounded-[8px] overflow-hidden mb-3 shrink-0 ">
 				<Image
 					src={image}
 					alt={name}
 					fill
-					className="object-cover object-top"
+					className="object-cover object-top group-hover:scale-105 transition-all duration-500"
 					sizes="(min-width: 768px) 322px, 50vw"
 				/>
 			</div>

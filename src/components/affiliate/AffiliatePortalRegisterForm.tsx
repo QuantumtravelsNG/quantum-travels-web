@@ -536,7 +536,7 @@ export default function AffiliatePortalRegisterForm() {
 
 	const desktopSectionHeading = "Register as an Affiliate";
 	const desktopSectionCopy =
-		"Complete your booking and let's get you all squared away.";
+		"Complete your registration to get started as a Quantum Travels associate.";
 
 	return (
 		<>
@@ -578,8 +578,9 @@ export default function AffiliatePortalRegisterForm() {
 								<h1 className="text-4xl font-black leading-normal">
 									{desktopSectionHeading}
 								</h1>
-								<p className="mt-4 text-[20px] leading-[1.4] font-medium">
-									Complete your booking and let&apos;s get you all squared away.
+								<p className="mt-4 text-[20px] leading-[1.4] font-medium text-balance">
+									Complete your registration to get started as a Quantum Travels
+									Affiliate.
 								</p>
 							</div>
 						</div>

@@ -14,13 +14,13 @@ export default function AffiliatePortalHero() {
 						sizes="100vw"
 						priority
 					/>
-					<div className="absolute inset-0 bg-black/20" />
+					<div className="absolute inset-0" />
 				</div>
 
-				<div
+				{/* <div
 					aria-hidden="true"
 					className="absolute left-[-131px] top-[-89px] h-[540px] w-[430px] rounded-r-full bg-primary md:left-[-230px] md:top-[-148px] md:h-[976px] md:w-[800px]"
-				/>
+				/> */}
 
 				<div className="relative z-10 mx-auto flex min-h-[400px] max-w-[1440px] items-center px-5 md:min-h-[600px] md:px-29">
 					<div className="max-w-[363px] text-white md:max-w-[720px]">

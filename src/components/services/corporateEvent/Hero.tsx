@@ -13,9 +13,22 @@ export default function Hero() {
 					sizes="100vw"
 					className="object-cover"
 				/>
-				<div className="absolute inset-0 bg-black/30 px-4 md:px-16">
-					{/* AS REQUESTED BY THE QUANTUM TRAVELS TEAM */}
-					{/* <div className="w-full max-w-6xl mx-auto flex flex-col items-start text-left py-10 md:py-20 my-auto h-fit">
+				<div className="absolute inset-0 text-white px-4 md:px-16">
+					<div className="w-full max-w-6xl mx-auto px-4 md:px-16 space-y-2 pt-14 md:pt-40">
+						<h2 className="text-2xl md:text-4xl font-bold text-balance leading-tight">
+							Comprehensive event solutions covering strategy, planning, and
+							flawless execution tailored to your business needs.
+						</h2>
+						<p className="text-xl w-full md:w-2/3 leading-normal">
+							End-to-end event solutions designed to deliver seamless,
+							well-coordinated, and impactful corporate experiences.
+						</p>
+					</div>
+				</div>
+
+				{/* <div className="absolute inset-0 bg-black/30 px-4 md:px-16">
+					AS REQUESTED BY THE QUANTUM TRAVELS TEAM
+					<div className="w-full max-w-6xl mx-auto flex flex-col items-start text-left py-10 md:py-20 my-auto h-fit">
             <h1 className="font-bold text-[24px] md:text-[44px] text-white leading-tight mb-4 w-2/3">
               Elevate Your Corporate Events With
               <br className="md:hidden" />
@@ -32,8 +45,8 @@ export default function Hero() {
             >
               Make Reservation
             </Link>
-          </div> */}
-				</div>
+          </div>
+				</div> */}
 			</div>
 		</div>
 	);

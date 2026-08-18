@@ -13,7 +13,7 @@ import type {
 import type { AdData } from "@/lib/rawdata";
 
 const API_BASE_URL =
-	process.env.QUANTUM_API_BASE_URL ?? "https://quantum.tonyicon.com.ng";
+	process.env.QUANTUM_API_BASE_URL ?? "https://services.quantumtravelsng.com/v1";
 
 export const API_READ_REVALIDATE_SECONDS = 300;
 export const API_CACHE_TAG = "quantum-api";
@@ -59,6 +59,8 @@ type ApiTourItinerary = null | {
 
 type ApiTourPackage = {
 	id?: string;
+	isActive?: boolean;
+	isFeatured?: boolean;
 	title?: string;
 	location?: string;
 	countryFlag?: string;
@@ -91,7 +93,7 @@ type ApiVisaPackage = {
 	description?: string;
 	processingTime?: string;
 	requirements?: string[];
-	requiredDocuments?: string;
+	requiredDocuments?: string[] | string;
 	supportPhone?: string;
 	supportEmail?: string;
 	terms?: string;
@@ -100,9 +102,9 @@ type ApiVisaPackage = {
 
 type ApiHomepage = {
 	hero_section?: string;
-	hero_banner_url?: string;
+	hero_section_mobile?: string;
+	hero_banner_text?: string;
 	ads?: string[];
-	holiday_packages?: ApiTourPackage[];
 };
 
 type ApiCarServicePrice = {
@@ -133,9 +135,9 @@ export type ApiGalleryFolder = {
 
 export type HomepageData = {
 	heroSection: string;
-	heroURL: string;
+	heroSectionMobile: string;
+	heroBannerText: string;
 	ads: AdData[];
-	holidayPackages: TourPackage[];
 };
 
 function buildUrl(path: string) {
@@ -382,6 +384,8 @@ function normalizeTourPackage(tour: ApiTourPackage): TourPackage {
 	const tourType: TourType = tour.tourType === "cruise" ? "cruise" : "holiday";
 
 	return {
+		isActive: tour.isActive ?? true,
+		isFeatured: tour.isFeatured ?? false,
 		title: tour.title?.trim() || "Untitled tour",
 		location: tour.location?.trim() || "",
 		countryFlags: normalizeCountryFlags(tour),
@@ -424,7 +428,7 @@ function normalizeVisaPackage(visa: ApiVisaPackage): VisaType {
 		description: visa.description?.trim() || "",
 		processingTime: visa.processingTime?.trim() || "",
 		requirements: Array.isArray(visa.requirements) ? visa.requirements : [],
-		requiredDocuments: visa.requiredDocuments?.trim() || "",
+		requiredDocuments: normalizeStringList(visa.requiredDocuments),
 		supportPhone: visa.supportPhone?.trim() || "",
 		supportEmail: visa.supportEmail?.trim() || "",
 		terms: visa.terms?.trim() || "",
@@ -463,12 +467,13 @@ function normalizeGalleryFolder(folder: ApiGalleryFolder): GalleryFolder {
 
 export async function getHomepageData(): Promise<HomepageData> {
 	const data = await quantumFetch<ApiHomepage>("/v1/site/homepage");
+	const heroSection = asString(data.hero_section);
 
 	return {
-		heroSection: trimUrl(data.hero_section, "/home/hero.jpg"),
-		heroURL: trimUrl(data.hero_banner_url, "/home/hero-banner.jpg"),
+		heroSection,
+		heroSectionMobile: asString(data.hero_section_mobile) || heroSection,
+		heroBannerText: asString(data.hero_banner_text),
 		ads: normalizeAds(data.ads),
-		holidayPackages: (data.holiday_packages ?? []).map(normalizeTourPackage),
 	};
 }
 
@@ -479,7 +484,16 @@ export async function getTourPackages(
 		`/v1/site/tour-packages/${tourType}`,
 	);
 
-	return data.map(normalizeTourPackage);
+	return data.map(normalizeTourPackage).filter((tour) => tour.isActive);
+}
+
+export async function getFeaturedTourPackages(): Promise<TourPackage[]> {
+	const packages = await Promise.all([
+		getTourPackages("holiday"),
+		getTourPackages("cruise"),
+	]);
+
+	return packages.flat().filter((tour) => tour.isFeatured);
 }
 
 export async function getTourPackageById(

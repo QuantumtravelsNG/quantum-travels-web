@@ -1,5 +1,5 @@
 import Image from "next/image";
-// import Link from "next/link";
+import Link from "next/link";
 
 export default function DiscoverBySea() {
 	return (
@@ -21,7 +21,7 @@ export default function DiscoverBySea() {
 					sizes="100vw"
 					priority
 				/>
-				<div className="absolute inset-0 bg-black/40" />
+				{/* <div className="absolute inset-0 bg-black/40" /> */}
 			</div>
 
 			<div className="relative h-full max-w-360 mx-auto px-6 md:px-20 py-25 md:py-50">
@@ -34,14 +34,14 @@ export default function DiscoverBySea() {
 						Thoughtfully designed journeys that reveal more than
 						<br className="hidden md:block" /> destinations.
 					</p>
-					{/* <div className="mt-6 md:mt-8">
+					<div className="mt-6 md:mt-8">
 						<Link
 							href="/services/book-holiday/cruises"
 							className="inline-flex h-[38px] items-center justify-center rounded-[9999px] bg-[#9E328A] px-8 text-xs font-bold text-white transition-colors hover:bg-[#8a2b78] active:scale-99 focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-white/50 md:h-[56px] md:px-8 md:text-base"
 						>
 							Explore
 						</Link>
-					</div> */}
+					</div>
 				</div>
 
 				<div className="mt-4 md:mt-8 flex items-center gap-[24px] md:gap-[54px]">

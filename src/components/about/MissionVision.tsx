@@ -2,36 +2,36 @@ import Image from "next/image";
 
 const STATS = [
 	{
-		value: "100K+",
-		label: "Happy Travelers",
+		value: "150k+",
+		label: "Happy Travellers",
 		icon: "/about/happyTravellers.svg",
 		bg: "bg-[#9e328a]",
 		valueColor: "text-white",
 		labelColor: "text-white",
 	},
 	{
-		value: "100k+",
-		label: "Tours Success",
+		value: "100+",
+		label: "Global Destinations",
 		icon: "/about/tourSuccess.svg",
 		bg: "bg-[#f9f9f9]",
 		valueColor: "text-[#9e328a]",
 		labelColor: "text-text",
 	},
 	{
-		value: "97.5%",
-		label: "Positive Review",
+		value: "98%",
+		label: "Positive Reviews",
 		icon: "/about/positiveReview.svg",
-		bg: "bg-[#feef60]",
-		valueColor: "text-text",
+		bg: "bg-[#f9f9f9]",
+		valueColor: "text-[#9e328a]",
 		labelColor: "text-text",
 	},
 	{
-		value: "150+",
-		label: "Travel Guide",
+		value: "20+",
+		label: "Years of Excellence",
 		icon: "/about/travelGuide.svg",
-		bg: "bg-[#c2ffc2]",
-		valueColor: "text-text",
-		labelColor: "text-text",
+		bg: "bg-[#9e328a]",
+		valueColor: "text-white",
+		labelColor: "text-white",
 	},
 ];
 
@@ -48,12 +48,20 @@ function StatCard({
 			className={`${bg} rounded-md shadow-[0px_1px_6px_0px_rgba(0,0,0,0.1)] flex flex-col items-center justify-center gap-1 py-6 px-4 flex-1 min-w-0`}
 		>
 			<div className="relative size-14 mb-1">
-				<Image src={icon} alt="" fill className="object-contain" sizes="56px" />
+				<Image
+					src={icon}
+					alt=""
+					fill
+					className={`object-contain ${labelColor}`}
+					sizes="56px"
+				/>
 			</div>
 			<span className={`text-2xl font-extrabold leading-snug ${valueColor}`}>
 				{value}
 			</span>
-			<span className={`text-base font-light leading-snug ${labelColor}`}>
+			<span
+				className={`text-base text-center font-light leading-snug ${labelColor}`}
+			>
 				{label}
 			</span>
 		</div>

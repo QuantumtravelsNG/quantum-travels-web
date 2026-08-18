@@ -1,18 +1,21 @@
 import Image from "next/image";
-// import Link from "next/link";
-// import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { isRemoteImage } from "@/lib/images";
 import Link from "next/link";
 
 export default function Hero({
-	image = "/home/hero.jpg",
-	heroUrl,
+	image,
+	mobileImage,
+	bannerText,
 }: {
-	image?: string;
-	heroUrl: string;
+	image: string;
+	mobileImage: string;
+	bannerText: string;
 }) {
 	return (
-		<section className="relative w-full max-h-[400px] md:max-h-[640px] mx-auto max-w-[1920px] overflow-hidden">
+		<section className="relative mx-auto w-full max-w-[1920px] overflow-hidden">
+			{/* max-h-[400px] md:max-h-[640px] 
+			
 			<Image
 				src={image}
 				alt="Quantum Travels Homepage hero image."
@@ -22,8 +25,46 @@ export default function Hero({
 				priority
 				unoptimized={isRemoteImage(image)}
 			/>
+			*/}
+			<div className="relative w-full md:aspect-[1440/680] md:min-h-[600px]">
+				<Image
+					src={mobileImage}
+					alt="Quantum Travels Homepage hero image."
+					className="h-auto w-full object-cover md:hidden"
+					height={600}
+					width={440}
+					priority
+					unoptimized={isRemoteImage(mobileImage)}
+				/>
+				<Image
+					src={image}
+					alt="Quantum Travels Homepage hero image."
+					className="hidden object-cover md:block"
+					fill
+					priority
+					sizes="100vw"
+					unoptimized={isRemoteImage(image)}
+				/>
+			</div>
 
-			<Link href={heroUrl} className="absolute inset-0 bg-black/20" />
+			<div className="absolute inset-0 z-10 flex items-center">
+				<div className="mx-auto w-full max-w-360 px-8 md:px-[137px]">
+					{bannerText ? (
+						<h1 className="mb-8 whitespace-pre-line text-2xl leading-snug font-bold text-text md:text-[44px] md:leading-tight">
+							{bannerText}
+						</h1>
+					) : null}
+
+					<Link href="#explore" className="inline-block">
+						<Button variant="default" size="hero" className="md:block hidden">
+							Explore
+						</Button>
+						<Button variant="default" size="hero-sm" className="md:hidden">
+							Explore
+						</Button>
+					</Link>
+				</div>
+			</div>
 
 			{/* AS REQUESTED BY THE QUANTUM TRAVELS TEAM */}
 			{/* <div className="relative z-10 w-full max-w-360 mx-auto px-8 md:px-[137px]">
