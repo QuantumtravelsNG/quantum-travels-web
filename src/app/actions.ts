@@ -3,8 +3,8 @@
 import {
   postQuantumApi,
   postQuantumFormData,
-  postQuantumApiWithData,
   getCarsAvailability,
+  QuantumApiError,
   verifyCarPayment,
 } from "@/lib/quantum-api";
 import type {
@@ -21,15 +21,6 @@ import { isValidDateValue, getTodayDateValue } from "@/lib/date-values";
 import { parseLocationValues } from "@/lib/locations";
 import { isValidPhoneNumberValue } from "@/lib/phone";
 import { searchAirports } from "@/lib/airports";
-
-type AirportBookingPaymentData = {
-  paymentUrl?: string;
-  authorization_url?: string;
-  checkoutUrl?: string;
-  url?: string;
-  payment?: AirportBookingPaymentData;
-  paystack?: AirportBookingPaymentData;
-};
 
 type AirportBookingSubmissionPayload =
   | (AirportPickupBookingPayload & { quotedPrice?: number | null })
@@ -227,19 +218,6 @@ function getFormDataString(formData: FormData, key: string) {
   return typeof value === "string" ? value.trim() : "";
 }
 
-function findPaymentUrl(data: AirportBookingPaymentData | undefined): string {
-  if (!data) return "";
-
-  const directUrl =
-    data.paymentUrl ?? data.authorization_url ?? data.checkoutUrl ?? data.url;
-
-  if (typeof directUrl === "string" && directUrl.trim()) {
-    return directUrl.trim();
-  }
-
-  return findPaymentUrl(data.payment) || findPaymentUrl(data.paystack);
-}
-
 function parsePositiveInteger(value: string): number {
   const match = value.trim().match(/\d+/);
   return match ? Number(match[0]) : 0;
@@ -426,6 +404,58 @@ function toAirportBookingApiPayload(payload: AirportBookingSubmissionPayload) {
         payload.passengerDetails.additionalComment?.trim() ?? "",
     },
   };
+}
+
+function getAirportBookingErrorMessage(error: unknown) {
+  if (error instanceof QuantumApiError) {
+    if (
+      error.statusCode >= 500 &&
+      error.statusCode <= 599 &&
+      error.statusCode !== 504
+    ) {
+      return "Our booking service is temporarily unavailable. Please try again later.";
+    }
+
+    switch (error.statusCode) {
+      case 400:
+      case 422:
+        return "Some booking details could not be accepted. Please review your details and try again.";
+      case 401:
+      case 403:
+        return "We could not authorize this booking. Please refresh the page and try again.";
+      case 404:
+        return "The selected vehicle could not be found. Please choose another cab.";
+      case 408:
+      case 504:
+        return "The booking request took too long. Please try again.";
+      case 409:
+        return "The selected vehicle is no longer available for these details. Please choose another cab or date.";
+      case 429:
+        return "Too many booking attempts were made. Please wait a moment and try again.";
+    }
+  }
+
+  return "We could not submit your booking. Please check your connection and try again.";
+}
+
+async function submitAirportBooking(
+  endpoint:
+    | "/v1/site/car-services/airport-pickup/book"
+    | "/v1/site/car-services/airport-dropoff/book",
+  payload: AirportBookingSubmissionPayload,
+): Promise<ActionResult> {
+  try {
+    await postQuantumApi(endpoint, toAirportBookingApiPayload(payload));
+    return {
+      ok: true,
+      message: "Booking submitted successfully.",
+    };
+  } catch (error) {
+    return {
+      ok: false,
+      message: getAirportBookingErrorMessage(error),
+    };
+  }
 }
 
 function toAirportAlternateApiPayload(payload: AirportAlternateRequestPayload) {
@@ -691,90 +721,36 @@ export async function submitAffiliateRegistration(
 
 export async function submitAirportPickupBooking(
   payload: AirportPickupBookingPayload & { quotedPrice?: number | null },
-): Promise<{ ok: boolean; message: string; paymentUrl?: string }> {
-  try {
-    const validationMessage = validateAirportBookingPayload(payload);
-    if (validationMessage) {
-      return {
-        ok: false,
-        message: validationMessage,
-      };
-    }
-
-    const backendPayload = toAirportBookingApiPayload(payload);
-    const response = await postQuantumApiWithData<
-      AirportPickupBookingPayload,
-      AirportBookingPaymentData
-    >("/v1/site/car-services/airport-pickup/book", backendPayload);
-    const paymentUrl = findPaymentUrl(response.data);
-
-    if (!paymentUrl) {
-      return {
-        ok: false,
-        message:
-          response.message ||
-          "The airport pickup booking was created, but no payment URL was returned.",
-      };
-    }
-
-    return {
-      ok: true,
-      message: response.message,
-      paymentUrl,
-    };
-  } catch (error) {
+): Promise<ActionResult> {
+  const validationMessage = validateAirportBookingPayload(payload);
+  if (validationMessage) {
     return {
       ok: false,
-      message:
-        error instanceof Error
-          ? error.message
-          : "The airport pickup booking could not be submitted.",
+      message: validationMessage,
     };
   }
+
+  return submitAirportBooking(
+    "/v1/site/car-services/airport-pickup/book",
+    payload,
+  );
 }
 
 export async function submitAirportDropoffBooking(
   payload: AirportDropoffBookingPayload & { quotedPrice?: number | null },
-): Promise<{ ok: boolean; message: string; paymentUrl?: string }> {
-  try {
-    const validationMessage = validateAirportBookingPayload(payload);
-    if (validationMessage) {
-      return {
-        ok: false,
-        message: validationMessage,
-      };
-    }
-
-    const backendPayload = toAirportBookingApiPayload(payload);
-    const response = await postQuantumApiWithData<
-      AirportDropoffBookingPayload,
-      AirportBookingPaymentData
-    >("/v1/site/car-services/airport-dropoff/book", backendPayload);
-    const paymentUrl = findPaymentUrl(response.data);
-
-    if (!paymentUrl) {
-      return {
-        ok: false,
-        message:
-          response.message ||
-          "The airport drop-off booking was created, but no payment URL was returned.",
-      };
-    }
-
-    return {
-      ok: true,
-      message: response.message,
-      paymentUrl,
-    };
-  } catch (error) {
+): Promise<ActionResult> {
+  const validationMessage = validateAirportBookingPayload(payload);
+  if (validationMessage) {
     return {
       ok: false,
-      message:
-        error instanceof Error
-          ? error.message
-          : "The airport drop-off booking could not be submitted.",
+      message: validationMessage,
     };
   }
+
+  return submitAirportBooking(
+    "/v1/site/car-services/airport-dropoff/book",
+    payload,
+  );
 }
 
 export async function submitAirportAlternateRequest(

@@ -13,7 +13,8 @@ import type {
 import type { AdData } from "@/lib/rawdata";
 
 const API_BASE_URL =
-	process.env.QUANTUM_API_BASE_URL ?? "https://services.quantumtravelsng.com/v1";
+	process.env.QUANTUM_API_BASE_URL ??
+	"https://services.quantumtravelsng.com/v1";
 
 export const API_READ_REVALIDATE_SECONDS = 300;
 export const API_CACHE_TAG = "quantum-api";
@@ -32,6 +33,16 @@ type QuantumFetchInit = RequestInit & {
 		tags?: string[];
 	};
 };
+
+export class QuantumApiError extends Error {
+	constructor(
+		message: string,
+		readonly statusCode: number,
+	) {
+		super(message);
+		this.name = "QuantumApiError";
+	}
+}
 
 type ApiPriceEntry = {
 	currency?: string;
@@ -103,7 +114,6 @@ type ApiVisaPackage = {
 type ApiHomepage = {
 	hero_section?: string;
 	hero_section_mobile?: string;
-	hero_banner_text?: string;
 	ads?: string[];
 };
 
@@ -136,7 +146,6 @@ export type ApiGalleryFolder = {
 export type HomepageData = {
 	heroSection: string;
 	heroSectionMobile: string;
-	heroBannerText: string;
 	ads: AdData[];
 };
 
@@ -184,8 +193,9 @@ async function quantumFetch<T>(
 			data = JSON.parse(text);
 		} catch {
 			if (!response.ok) {
-				throw new Error(
+				throw new QuantumApiError(
 					`The Quantum API request failed with status ${response.status}.`,
+					response.status,
 				);
 			}
 
@@ -202,7 +212,7 @@ async function quantumFetch<T>(
 			typeof responseMessage === "string"
 				? responseMessage
 				: "The Quantum API request failed.";
-		throw new Error(message);
+		throw new QuantumApiError(message, response.status);
 	}
 
 	return data as T;
@@ -472,7 +482,6 @@ export async function getHomepageData(): Promise<HomepageData> {
 	return {
 		heroSection,
 		heroSectionMobile: asString(data.hero_section_mobile) || heroSection,
-		heroBannerText: asString(data.hero_banner_text),
 		ads: normalizeAds(data.ads),
 	};
 }
@@ -678,33 +687,4 @@ export async function verifyCarPayment(
 				error instanceof Error ? error.message : "Payment verification failed.",
 		};
 	}
-}
-
-export async function postQuantumApiWithData<TPayload, TData>(
-	path: string,
-	payload: TPayload,
-): Promise<{ ok: boolean; message: string; data?: TData }> {
-	const backendPayload = normalizeBackendPayload(payload);
-	const response = await quantumFetch<{
-		status?: boolean;
-		message?: string;
-		data?: TData;
-	}>(path, {
-		method: "POST",
-		cache: "no-store",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify(backendPayload),
-	});
-
-	if (response.status === false) {
-		throw new Error(response.message || "Please try again.");
-	}
-
-	return {
-		ok: true,
-		message: response.message || "Submitted successfully.",
-		data: response.data,
-	};
 }

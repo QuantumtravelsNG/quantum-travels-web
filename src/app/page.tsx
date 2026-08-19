@@ -28,7 +28,6 @@ export default async function HomePage() {
 			<Hero
 				image={homepage.heroSection}
 				mobileImage={homepage.heroSectionMobile}
-				bannerText={homepage.heroBannerText}
 			/>
 			<div className="py-6 md:py-10" id="explore">
 				<FancyText

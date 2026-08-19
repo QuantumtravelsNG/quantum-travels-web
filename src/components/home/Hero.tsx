@@ -6,11 +6,9 @@ import Link from "next/link";
 export default function Hero({
 	image,
 	mobileImage,
-	bannerText,
 }: {
 	image: string;
 	mobileImage: string;
-	bannerText: string;
 }) {
 	return (
 		<section className="relative mx-auto w-full max-w-[1920px] overflow-hidden">
@@ -47,7 +45,7 @@ export default function Hero({
 				/>
 			</div>
 
-			<div className="absolute inset-0 z-10 flex items-center">
+			{/* <div className="absolute inset-0 z-10 flex items-center">
 				<div className="mx-auto w-full max-w-360 px-8 md:px-[137px]">
 					{bannerText ? (
 						<h1 className="mb-8 whitespace-pre-line text-2xl leading-snug font-bold text-text md:text-[44px] md:leading-tight">
@@ -64,39 +62,35 @@ export default function Hero({
 						</Button>
 					</Link>
 				</div>
-			</div>
+			</div> */}
 
 			{/* AS REQUESTED BY THE QUANTUM TRAVELS TEAM */}
-			{/* <div className="relative z-10 w-full max-w-360 mx-auto px-8 md:px-[137px]">
-				<h1 className="text-2xl md:text-[44px] font-bold text-white leading-snug md:leading-tight mb-4">
-					World-Class Corporate
-					<br className="hidden md:block" />
-					<span className="md:hidden">{" & "}</span>
-					<span className="hidden md:inline">{" & "}</span>
-					Leisure Travel
-				</h1>
+			<div className="absolute inset-0 z-10 flex items-center">
+				<div className="w-full max-w-360 mx-auto px-8 md:px-36">
+					<h1 className="text-2xl md:text-[44px] font-bold text-text leading-snug md:leading-tight mb-4">
+						World-Class Corporate
+						<br className="hidden md:block" />
+						<span className="md:hidden">{" & "}</span>
+						<span className="hidden md:inline">{" & "}</span>
+						Leisure Travel
+					</h1>
 
-				<p className="text-base md:text-2xl font-light text-white leading-relaxed mb-8 max-w-3xl">
-					Corporate Travel • Leisure Trips • Airport Transfers
-					<span className="hidden md:inline"> • </span>
-					<span className="md:hidden">
-						<br />•{" "}
-					</span>
-					Corporate Events
-					<span className="hidden md:inline"> • </span>
-					<span className="md:hidden"> • </span>
-					One Seamless Experience.
-				</p>
+					<p className="text-base md:text-2xl font-light text-text/80 mb-8 max-w-3xl">
+						Your trusted partner for corporate travel, leisure getaways,
+						airports transfers, visa assistance, and corporate events, all in
+						one seamless experience.
+					</p>
 
-				<Link href="#explore" className="inline-block">
-					<Button variant="hero" size="hero" className="md:block hidden">
-						Explore
-					</Button>
-					<Button variant="hero" size="hero-sm" className="md:hidden">
-						Explore
-					</Button>
-				</Link>
-			</div> */}
+					<Link href="#explore" className="inline-block">
+						<Button variant="default" size="hero" className="md:block hidden">
+							Explore
+						</Button>
+						<Button variant="default" size="hero-sm" className="md:hidden">
+							Explore
+						</Button>
+					</Link>
+				</div>
+			</div>
 		</section>
 	);
 }
