@@ -27,7 +27,7 @@ import { cn } from "@/lib/utils";
 const EMAIL_REGEX =
 	/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*\.[a-zA-Z]{2,}$/;
 const ALLOWED_FILE_TYPES = ["application/pdf", "image/jpeg", "image/png"];
-const MAX_FILE_SIZE = 5 * 1024 * 1024;
+const MAX_FILE_SIZE = 1024 * 1024;
 const marketSelectOptions = toLocationOptions(marketOptions);
 const currencySelectOptions = toLocationOptions(currencyOptions);
 
@@ -94,7 +94,7 @@ function validateField(name: FieldName, values: FormValues): string {
 				return "Upload a PDF, JPG, or PNG file.";
 			}
 			if (values.cacFile.size > MAX_FILE_SIZE) {
-				return "CAC document must be 5MB or smaller.";
+				return "CAC document must be 1MB or smaller.";
 			}
 			return "";
 		case "country":
@@ -698,7 +698,7 @@ export default function AffiliatePortalRegisterForm() {
 									/>
 
 									<HelperText
-										text="Please ensure all details on the certificate are visible"
+										text="Please ensure all details on the certificate are visible. Upload a PDF, JPG, or PNG file. Max size: 1MB"
 										error={errors.cacFile}
 									/>
 								</section>

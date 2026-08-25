@@ -24,7 +24,7 @@ export default function BookHolidayHero() {
 				heading={
 					"Discover The Best \nTours & Experience\nTravel Like Never\nBefore"
 				}
-				subheading="The Quantum experience is out of this world."
+				subheading="We ensure your vacation is unforgettable."
 				image={image}
 			/>
 		</div>

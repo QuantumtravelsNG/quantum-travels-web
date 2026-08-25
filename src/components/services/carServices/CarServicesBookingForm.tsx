@@ -27,6 +27,7 @@ import { formatDateValueForDisplay, isValidDateValue } from "@/lib/date-values";
 import { isValidPhoneNumberValue } from "@/lib/phone";
 import { isRemoteImage } from "@/lib/images";
 import { airports } from "@/lib/airports";
+import BookingSuccessDialog from "@/components/services/carServices/BookingSuccessDialog";
 import type {
 	Car,
 	PassengerDetails,
@@ -100,6 +101,7 @@ export default function CarServicesBookingForm({
 	// Errors and fields
 	const [errors, setErrors] = useState<Partial<Record<string, string>>>({});
 	const [isSubmitting, setIsSubmitting] = useState(false);
+	const [submitted, setSubmitted] = useState(false);
 	const [submitError, setSubmitError] = useState("");
 
 	// Load session details on mount and validate
@@ -330,23 +332,34 @@ export default function CarServicesBookingForm({
 		try {
 			const result = await action(payload);
 			if (!result.ok) {
-				setSubmitError(result.message || "Failed to submit booking.");
-				setIsSubmitting(false);
+				setSubmitError(result.message);
 				return;
 			}
 
-			if (result.paymentUrl) {
-				sessionStorage.removeItem("quantum_car_booking_car");
-				sessionStorage.removeItem("quantum_car_booking");
-				window.location.href = result.paymentUrl;
-			} else {
-				setSubmitError("No payment URL received from server.");
-				setIsSubmitting(false);
-			}
-		} catch (err) {
-			setSubmitError(err instanceof Error ? err.message : "An error occurred.");
+			setSubmitted(true);
+		} catch {
+			setSubmitError(
+				"We could not submit your booking. Please check your connection and try again.",
+			);
+		} finally {
 			setIsSubmitting(false);
 		}
+	};
+
+	const handleCloseDialog = () => {
+		setSubmitted(false);
+		setFullName("");
+		setEmail("");
+		setPhone("");
+		setAlternativePhone("");
+		setFlightNumber("");
+		setTerminal("");
+		setNoteForDriver("");
+		setErrors({});
+		setSubmitError("");
+		sessionStorage.removeItem("quantum_car_booking_car");
+		sessionStorage.removeItem("quantum_car_booking");
+		router.replace("/services/car-services");
 	};
 
 	if (!isValidated || !car || !bookingDetails) {
@@ -361,6 +374,13 @@ export default function CarServicesBookingForm({
 
 	return (
 		<div className="w-full bg-white py-8 md:py-12">
+			<BookingSuccessDialog
+				open={submitted}
+				onClose={handleCloseDialog}
+				title="Booking Successful"
+				description="Your booking has been received successfully. Our team will review the details and get back to you shortly."
+			/>
+
 			<div className="mx-auto max-w-[1440px] px-4 md:px-16">
 				{/* Top Announcement Banner */}
 				<div className="w-full bg-[#9E328A]/10 border border-[#9E328A]/20 rounded-[5px] p-4 flex items-start gap-3 mb-6 md:mb-8 max-w-[1130px] mx-auto">
