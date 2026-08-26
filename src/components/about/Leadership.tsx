@@ -18,16 +18,6 @@ const LEADERS = [
 		image: "/about/olamideBabayemi.png",
 	},
 	{
-		name: "Christopher Egwim",
-		position: "Chief of Operations",
-		image: "/about/christopherEgwim.png",
-	},
-	{
-		name: "Adeyinka Aro",
-		position: "Group Head, Finance & Accounts",
-		image: "/about/adeyinkaAro.jpg",
-	},
-	{
 		name: "Barakah Olaleye",
 		position: "Group Head, Northern Branch Operations",
 		image: "/about/barakahOlaleye.png",
@@ -39,7 +29,7 @@ const LEADERS = [
 	},
 	{
 		name: "Wealth Arumemi",
-		position: "Group Head, Corporate Sales",
+		position: "Head, Corporate Sales",
 		image: "/about/wealthArumemi.png",
 	},
 	{
@@ -56,6 +46,16 @@ const LEADERS = [
 		name: "Oluwakanyinsola Savage",
 		position: "Head, Human Capital Management",
 		image: "/about/oluwakanyinsolaSavage.png",
+	},
+	{
+		name: "Lanre Olanipekun",
+		position: "Head, Corporate Operations",
+		image: "/about/lanreOlanipekun.png",
+	},
+	{
+		name: "Adeyinka Aro",
+		position: "Group Head, Finance & Accounts",
+		image: "/about/adeyinkaAro.jpg",
 	},
 ];
 
