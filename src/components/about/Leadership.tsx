@@ -14,8 +14,18 @@ const LEADERS = [
 	},
 	{
 		name: "Olamide Babayemi",
-		position: "General Manager",
+		position: "Deputy General Manager",
 		image: "/about/olamideBabayemi.png",
+	},
+	{
+		name: "Christopher Egwim",
+		position: "Chief of Operations",
+		image: "/about/christopherEgwim.png",
+	},
+	{
+		name: "Adeyinka Aro",
+		position: "Group Head, Finance & Accounts",
+		image: "/about/adeyinkaAro.jpg",
 	},
 	{
 		name: "Barakah Olaleye",
@@ -23,8 +33,13 @@ const LEADERS = [
 		image: "/about/barakahOlaleye.png",
 	},
 	{
+		name: "Omotoyosi Otemoye",
+		position: "Group Head, Quantum Holidays",
+		image: "/about/omotoyosiOtemoye.png",
+	},
+	{
 		name: "Wealth Arumemi",
-		position: "Head, Corporate Sales",
+		position: "Group Head, Corporate Sales",
 		image: "/about/wealthArumemi.png",
 	},
 	{
@@ -33,24 +48,14 @@ const LEADERS = [
 		image: "/about/israelAdemola.png",
 	},
 	{
-		name: "Omotoyosi Otemoye",
-		position: "Group Head, Quantum Holidays",
-		image: "/about/omotoyosiOtemoye.png",
-	},
-	{
-		name: "Oluwakanyinsola Savage",
-		position: "Head, Human Capital Management",
-		image: "/about/oluwakanyinsolaSavage.png",
-	},
-	{
 		name: "Lanre Olanipekun",
 		position: "Head, Corporate Operations",
 		image: "/about/lanreOlanipekun.png",
 	},
 	{
-		name: "Adeyinka Aro",
-		position: "Group Head, Finance & Accounts",
-		image: "/about/adeyinkaAro.jpg",
+		name: "Oluwakanyinsola Savage",
+		position: "Head, Human Capital Management",
+		image: "/about/oluwakanyinsolaSavage.png",
 	},
 ];
 

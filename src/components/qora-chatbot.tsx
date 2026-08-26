@@ -100,7 +100,7 @@ type ResourceIssueOptions = {
    ============================================================ */
 
 /* ---------------- Configuration ---------------- */
-const API_BASE = "https://quantum.tonyicon.com.ng";
+const API_BASE = "https://services.quantumtravelsng.com";
 
 const ENDPOINTS: Record<ResourceKey, string> = {
   packages: "/v1/site/tour-packages/holiday",

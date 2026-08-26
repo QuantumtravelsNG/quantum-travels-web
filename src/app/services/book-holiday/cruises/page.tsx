@@ -22,7 +22,7 @@ export default async function CruisesPage() {
 					heading={
 						"Discover The Best \nTours & Experience\nTravel Like Never\nBefore"
 					}
-					subheading="The Quantum experience is out of this world."
+					subheading="We ensure your vacation is unforgettable."
 					image="/ourServices/book-holiday/cruiseHeroImage.jpg"
 				/>
 			</div>

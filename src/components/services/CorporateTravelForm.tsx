@@ -149,11 +149,11 @@ export default function CorporateTravelForm() {
 
 							<ul className="mb-16 w-full list-inside space-y-4">
 								{[
-									"Account management",
-									"Report management",
-									"Policy compliance",
-									"Mobile Itinerary management solutions",
-									"Travel Risk management solutions",
+									"Account Management",
+									"Report Management",
+									"Policy Compliance",
+									"Mobile Itinerary Management Solutions",
+									"Travel Risk Management Solutions",
 								].map((item) => (
 									<li
 										key={item}
@@ -170,13 +170,13 @@ export default function CorporateTravelForm() {
 									Contact
 								</p>
 								<p className="mb-4 text-[16px] font-medium tracking-wide md:text-[20px]">
-									0700 QUANTUM | 0700 782 6886 | +234 908 719 4783
+									+234 810 926 4805 | 0700 782 6886
 								</p>
 								<a
-									href="mailto:corporate@quantumtravelsng.com"
+									href="mailto:info@quantumtravelsng.com"
 									className="text-[14px] font-medium text-white transition-all hover:underline md:text-[18px]"
 								>
-									corporate@quantumtravelsng.com
+									info@quantumtravelsng.com
 								</a>
 							</div>
 						</div>

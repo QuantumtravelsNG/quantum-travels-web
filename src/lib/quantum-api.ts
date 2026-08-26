@@ -12,9 +12,9 @@ import type {
 } from "@/lib/quantum";
 import type { AdData } from "@/lib/rawdata";
 
-const API_BASE_URL =
-	process.env.QUANTUM_API_BASE_URL ??
-	"https://services.quantumtravelsng.com/v1";
+const API_BASE_URL = "https://services.quantumtravelsng.com";
+	// process.env.QUANTUM_API_BASE_URL ??
+	// "https://services.quantumtravelsng.com";
 
 export const API_READ_REVALIDATE_SECONDS = 300;
 export const API_CACHE_TAG = "quantum-api";
