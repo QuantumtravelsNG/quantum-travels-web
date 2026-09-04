@@ -456,7 +456,7 @@ export default function ContactUsContent() {
 					<div className="mt-6 border-l-4 border-[#9e328a] pl-4 md:mt-7 md:border-l-8 md:pl-8">
 						<div className="space-y-5 md:space-y-6">
 							<ContactBlock label="Opening Hours">
-								8:00AM -5:00PM Monday - Friday, Saturday & Sunday Closed
+								8:00AM -5:00PM, Saturday & Sunday Close
 							</ContactBlock>
 
 							<ContactBlock label="Contact">
