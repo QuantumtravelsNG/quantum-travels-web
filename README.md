@@ -270,6 +270,6 @@ Recommended workflow:
 5. Run lint, type-checking, and a production build before pushing.
 
 
-knt dev push
-
+knt dev push 2
+dummy push for deployement 
 
