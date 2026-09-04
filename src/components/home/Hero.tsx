@@ -68,7 +68,7 @@ export default function Hero({
 			<div className="absolute inset-0 z-10 flex items-center">
 				<div className="w-full max-w-360 mx-auto px-8 md:px-36">
 					<h1 className="text-2xl md:text-[44px] font-bold text-text leading-snug md:leading-tight mb-4">
-						World-Class Corporate
+						World-Class-Corporate
 						<br className="hidden md:block" />
 						<span className="md:hidden">{" & "}</span>
 						<span className="hidden md:inline">{" & "}</span>
