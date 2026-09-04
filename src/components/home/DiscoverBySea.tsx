@@ -14,7 +14,7 @@ export default function DiscoverBySea() {
 			/> */}
 			<div className="absolute inset-0">
 				<Image
-					src="/home/discoverSection.jpg"
+					src="/home/discoverSectionNew.jpg"
 					alt="Discover the world by sea"
 					className="object-cover"
 					fill
