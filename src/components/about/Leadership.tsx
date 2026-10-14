@@ -14,7 +14,7 @@ const LEADERS = [
 	},
 	{
 		name: "Olamide Babayemi",
-		position: "Deputy General Manager",
+		position: "Director of Operations",
 		image: "/about/olamideBabayemi.png",
 	},
 	{
